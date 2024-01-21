@@ -1,13 +1,18 @@
 ﻿@page "/members/create"
 
-<EditForm Model="_member" OnValidSubmit="OnValidSubmit">
-    <div class="mb-3">
-        <label class="form-label">Nome</label>
-        <InputText @bind-Value="_member.FirstName" class="form-control" />
+<EditForm Model="_member" OnValidSubmit="OnValidSubmit" class="container-fluid">
+    <div class="mb-3 row">
+        <div class="col-3">
+            <label class="form-label">Nome</label>
+            <InputText @bind-Value="_member.FirstName" class="form-control" />
+        </div>
     </div>
-    <div class="mb-3">
-        <label class="form-label">Cognome</label>
-        <InputText @bind-Value="_member.LastName" class="form-control" />
+    <div class="mb-3 row">
+        <div class="col-3">
+
+            <label class="form-label">Cognome</label>
+            <InputText @bind-Value="_member.LastName" class="form-control" />
+        </div>
     </div>
     <div class="mb-3">
         @if (_member.IsSaving)

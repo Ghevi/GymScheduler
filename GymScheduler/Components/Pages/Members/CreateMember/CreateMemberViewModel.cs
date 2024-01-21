@@ -1,6 +1,6 @@
 ﻿namespace GymScheduler.Components.Pages.Members.CreateMember;
 
-public class MemberViewModel
+public class CreateMemberViewModel
 {
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;

@@ -8,8 +8,21 @@
         <NavLink type="button" class="btn btn-primary mx-2" href="/members/create">Create</NavLink>
     </h1>
     <div class="grid">
-        <QuickGrid Items="_members" TGridItem="Member">
-            <PropertyColumn Property="@(x => x.Fullname)" />
+        <QuickGrid Items="_members" TGridItem="Entities.CQRS.Queries.MemberViewModel">
+            <PropertyColumn Property="@(x => x.Fullname)" Sortable="true" Class="full-name">
+                <ColumnOptions>
+                    <div class="search-box">
+                        <input type="search" class="form-control" autofocus @bind="_nameFilter" @bind:event="oninput" placeholder="Full Name..." />
+                    </div>
+                </ColumnOptions>
+            </PropertyColumn>
+            @* <PropertyColumn Property="@(x => x.)" Sortable="true" Class="full-name">
+                <ColumnOptions>
+                    <div class="search-box">
+                        <input type="search" class="form-control" autofocus @bind="_nameFilter" @bind:event="oninput" placeholder="Full Name..." />
+                    </div>
+                </ColumnOptions>
+            </PropertyColumn> *@
         </QuickGrid>
     </div>
 </div>

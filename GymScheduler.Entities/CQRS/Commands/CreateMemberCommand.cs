@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using GymScheduler.Entities.Entities;
+using GymScheduler.Entities.ValueObjects;
 
 namespace GymScheduler.Entities.CQRS.Commands;
 

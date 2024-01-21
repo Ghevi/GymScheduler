@@ -1,5 +1,4 @@
-using GymScheduler.Entities.Entities;
-using GymScheduler.Queries.Members;
+using GymScheduler.Entities.CQRS.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 
@@ -9,13 +8,13 @@ public partial class Members
 {
     [Inject] protected IMediator Mediator { get; set; } = null!;
 
-    private IQueryable<Member>? _members;
+    IQueryable<MemberViewModel>? _members;
+    String _nameFilter = String.Empty;
 
     protected override async Task OnInitializedAsync()
     {
         var request = new GetAllMembers();
         _members = await Mediator.Send(request);
-
         await base.OnInitializedAsync();
     }
 }

@@ -9,7 +9,7 @@ public partial class CreateMember
     [Inject] protected IMediator Mediator { get; set; } = null!;
     [Inject] protected NavigationManager NavigationManager { get; set; } = null!;
 
-    readonly MemberViewModel _member = new();
+    readonly CreateMemberViewModel _member = new();
 
     async Task OnValidSubmit()
     {
