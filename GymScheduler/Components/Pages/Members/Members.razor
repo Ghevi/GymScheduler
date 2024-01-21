@@ -1,0 +1,15 @@
+﻿@page "/members"
+
+<PageTitle>Members</PageTitle>
+
+<div class="container-fluid">
+    <h1>
+        Members
+        <NavLink type="button" class="btn btn-primary mx-2" href="/members/create">Create</NavLink>
+    </h1>
+    <div class="grid">
+        <QuickGrid Items="_members" TGridItem="Member">
+            <PropertyColumn Property="@(x => x.Fullname)" />
+        </QuickGrid>
+    </div>
+</div>
