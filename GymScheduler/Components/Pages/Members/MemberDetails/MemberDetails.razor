@@ -1,0 +1,70 @@
+﻿@page "/members/trainings/{memberId:guid}"
+@inherits AppComponentBase
+
+@if (_member is null)
+{
+    <Spinner />
+}
+else
+{
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Crea Allenamento</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @if (_createTraining is null)
+                    {
+                        <Spinner />
+                    }
+                    else
+                    {
+                        <EditForm Model="_createTraining" class="container border" style="width: 20cm; height: 21cm">
+                            <div class="row" style="height: 1cm">
+                                <div class="col border">
+                                    <label>@_member.Member.Fullname</label>
+                                </div>
+                                <div class="col border">
+                                    <InputDate @bind-Value="_createTraining.Start" placehoder="Data inizio" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                @foreach (var training in _createTraining.Trainings)
+                                {
+                                    <div class="col-6 border d-flex align-items-center justify-content-center" style="height: @_createTraining.TrainingsHeightInCm">
+                                        <button class="btn btn-primary" @onclick="StartTraining">Aggiungi esercizio</button>
+                                    </div>
+                                }
+                            </div>
+                        </EditForm>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                    <button type="button" class="btn btn-primary">Crea</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <h1>@_member.Member.Fullname</h1>
+        <h2>
+            Allenamenti
+            <button type="button"
+                    class="btn btn-primary mx-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                    @onclick="StartCreateTraining">
+                Create
+            </button>
+        </h2>
+        <div class="grid">
+            <QuickGrid Items="_member.Trainings" TGridItem="Entities.CQRS.Queries.MemberTrainingViewModel">
+                <PropertyColumn Property="@(x => x.Duration)" Sortable="true" Class="full-name" />
+            </QuickGrid>
+        </div>
+    </div>
+}

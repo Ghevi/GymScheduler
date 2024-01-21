@@ -1,4 +1,4 @@
-﻿@page "/members"
+﻿@page "/"
 
 <PageTitle>Members</PageTitle>
 
@@ -16,13 +16,9 @@
                     </div>
                 </ColumnOptions>
             </PropertyColumn>
-            @* <PropertyColumn Property="@(x => x.)" Sortable="true" Class="full-name">
-                <ColumnOptions>
-                    <div class="search-box">
-                        <input type="search" class="form-control" autofocus @bind="_nameFilter" @bind:event="oninput" placeholder="Full Name..." />
-                    </div>
-                </ColumnOptions>
-            </PropertyColumn> *@
+            <TemplateColumn Title="">
+                <NavLink href="@($"members/trainings/{context.Id.Value}")">Allenamenti</NavLink>
+            </TemplateColumn>
         </QuickGrid>
     </div>
 </div>

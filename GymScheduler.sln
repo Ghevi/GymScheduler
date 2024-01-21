@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34511.98
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymScheduler", "GymScheduler\GymScheduler.csproj", "{A3D2DF9D-B01D-42CD-AA0C-556FC40904B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymScheduler", "GymScheduler\GymScheduler.csproj", "{A3D2DF9D-B01D-42CD-AA0C-556FC40904B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymScheduler.Entities", "GymScheduler.Entities\GymScheduler.Entities.csproj", "{D13A5235-CC4F-4C84-A2A0-44CB5138DF56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GymScheduler.Entities", "GymScheduler.Entities\GymScheduler.Entities.csproj", "{D13A5235-CC4F-4C84-A2A0-44CB5138DF56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

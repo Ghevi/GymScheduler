@@ -13,7 +13,7 @@ public partial class Members
 
     protected override async Task OnInitializedAsync()
     {
-        var request = new GetAllMembers();
+        var request = new GetAllMembersQuery();
         _members = await Mediator.Send(request);
         await base.OnInitializedAsync();
     }
