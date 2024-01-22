@@ -1,0 +1,35 @@
+﻿@using static GymScheduler.Components.Pages.Members.MemberDetails.MemberDetails
+@code {
+    [Parameter] public Fullname Fullname { get; set; }
+    [Parameter] public DateTimeOffset? Start { get; set; }
+    [Parameter] public IEnumerable<TrainingViewModel> Trainings { get; set; }
+}
+
+<div class="container-fluid" style="width: 20cm; height: 21cm">
+    <div class="row" style="height: 1cm">
+        <div class="col border">
+            <div class="row align-items-center h-100">
+                <div class="col-auto fw-bold">Atleta:</div>
+                <div class="col">@Fullname</div>
+            </div>
+        </div>
+        <div class="col border">
+            <div class="row align-items-center h-100">
+                <div class="col-auto">
+                    <div class="fw-bold">Data inizio:</div>
+                </div>
+                <div class="col-7">
+                    <InputDate @bind-Value="Start" class="form-control form-control-sm" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @foreach (var training in Trainings)
+        {
+            <div class="col-6 border d-flex align-items-center justify-content-center" style="height: 4cm">
+                <button class="btn btn-primary">Aggiungi esercizio</button>
+            </div>
+        }
+    </div>
+</div>

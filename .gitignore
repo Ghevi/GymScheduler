@@ -65,6 +65,7 @@ artifacts/
 appsettings.json
 appsettings.*.json
 /GymScheduler/wwwroot/lib
+/GymScheduler/.local-chromium
 
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt

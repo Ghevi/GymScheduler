@@ -1,6 +1,7 @@
 using GymScheduler.Components;
 using GymScheduler.Entities;
 using Microsoft.EntityFrameworkCore;
+using webenology.blazor.components;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddDbContextFactory<AppDbContext>(o
 builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<Program>());
 builder.Services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<AppDbContext>());
 builder.Services.AddQuickGridEntityFrameworkAdapter();
+builder.Services.AddWebenologyHelpers();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

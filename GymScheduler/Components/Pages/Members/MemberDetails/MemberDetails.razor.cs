@@ -1,11 +1,14 @@
 using GymScheduler.Entities.CQRS.Queries;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System.Diagnostics.Metrics;
+using webenology.blazor.components.BlazorPdfComponent;
 
 namespace GymScheduler.Components.Pages.Members.MemberDetails;
 public partial class MemberDetails
 {
     [Inject] protected IJSRuntime Js { get; set; } = null!;
+    [Inject] protected IBlazorPdf BlazorPdf { get; set; } = null!;
 
     [Parameter] public Guid MemberId { get; set; }
 
@@ -60,5 +63,36 @@ public partial class MemberDetails
         _createTraining!.Trainings[0].Started = true;
         _createTraining.Trainings.Add(new TrainingViewModel());
         await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task ShowPopupBlockedMessage()
+    {
+        await Js.InvokeVoidAsync("alert", "Popup is blocked!");
+    }
+
+    private async Task Print()
+    {
+        var fileName = "my file name";
+        var cssFileLocations = new List<string>();
+        var jsFileLocations = new List<string>();
+        try
+        {
+            var base64Results = await BlazorPdf.GetBlazorInPdfBase64<Training>(
+                x =>
+                {
+                    x.Add(y => y.Fullname, _member.Member.Fullname);
+                    x.Add(y => y.Start, _createTraining.Start);
+                    x.Add(y => y.Trainings, _createTraining.Trainings);
+                },
+                fileName, 
+                cssFileLocations, 
+                jsFileLocations);
+
+        }
+        catch (Exception ex)
+        {
+
+            throw;
+        }
     }
 }

@@ -6,8 +6,8 @@ namespace GymScheduler.Entities;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    public DbSet<Member> Members { get; set; }
-    public DbSet<Training> Trainings { get; set; }
+    public DbSet<Member> Members => base.Set<Member>();
+    public DbSet<Training> Trainings => base.Set<Training>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
