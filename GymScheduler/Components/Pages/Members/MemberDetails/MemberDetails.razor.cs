@@ -1,5 +1,7 @@
+using GymScheduler.Components.Shared.Interactables;
 using GymScheduler.Entities.CQRS.Queries;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.JSInterop;
 using System.Diagnostics.Metrics;
 using webenology.blazor.components.BlazorPdfComponent;
@@ -14,32 +16,28 @@ public partial class MemberDetails
 
     MemberDetailsViewModel? _member;
     CreateTrainingViewModel? _createTraining;
-
+    readonly Edges _mainRowEdges = new(Left: false, Top: false, Right: false, Bottom: true);
+    readonly Edges _leftCellEdges = new(Left: false, Top: false, Right: true, Bottom: false);
     public class CreateTrainingViewModel
     {
         public required MemberViewModel Member { get; init; }
         public DateTimeOffset? Start { get; set; }
-        public List<TrainingViewModel> Trainings { get; set; } = [ new TrainingViewModel() ];
-        public String TrainingsHeightInCm
-        {
-            get
-            {
-                var height = Trainings.Count switch
-                {
-                    <= 10 => 4,
-                    > 10 => 3,
-                };
-                return $"{height}cm";
-            }
-        }
+        public List<TrainingViewModel> Trainings { get; set; } = [new TrainingViewModel()];
+    }
+
+    public class Exercise
+    {
+        public Stream Image { get; set; } = Stream.Null;
+        public String Value { get; set; } = String.Empty;
     }
 
     public class TrainingViewModel
     {
-        public Boolean Started { get; set; }
-        public String Training1 { get; set; } = String.Empty;
-        public String Training2 { get; set; } = String.Empty;
-        public String Training3 { get; set; } = String.Empty;
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public Dictionary<Int32, Exercise> Exercises { get; } = new()
+        {
+            { 1, new() }
+        };
     }
 
     protected async override Task OnInitializedAsync()
@@ -54,45 +52,19 @@ public partial class MemberDetails
         _createTraining = new CreateTrainingViewModel()
         {
             Member = _member!.Member with { },
+            Trainings = Enumerable.Range(0, 5).Select(x => new TrainingViewModel() { }).ToList(),
         };
         await InvokeAsync(StateHasChanged);
+        //await Js.InvokeVoidAsync("initializeInteract");
     }
 
-    private async Task StartTraining()
+    private async Task UploadFile(InputFileChangeEventArgs e, TrainingViewModel training, Int32 key)
     {
-        _createTraining!.Trainings[0].Started = true;
-        _createTraining.Trainings.Add(new TrainingViewModel());
+        training.Exercises[key].Image = e.File.OpenReadStream(Int64.MaxValue);
+
+        if (training.Exercises.Count >= 3) return;
+
+        training.Exercises.Add(key + 1, new());
         await InvokeAsync(StateHasChanged);
-    }
-
-    private async Task ShowPopupBlockedMessage()
-    {
-        await Js.InvokeVoidAsync("alert", "Popup is blocked!");
-    }
-
-    private async Task Print()
-    {
-        var fileName = "my file name";
-        var cssFileLocations = new List<string>();
-        var jsFileLocations = new List<string>();
-        try
-        {
-            var base64Results = await BlazorPdf.GetBlazorInPdfBase64<Training>(
-                x =>
-                {
-                    x.Add(y => y.Fullname, _member.Member.Fullname);
-                    x.Add(y => y.Start, _createTraining.Start);
-                    x.Add(y => y.Trainings, _createTraining.Trainings);
-                },
-                fileName, 
-                cssFileLocations, 
-                jsFileLocations);
-
-        }
-        catch (Exception ex)
-        {
-
-            throw;
-        }
     }
 }

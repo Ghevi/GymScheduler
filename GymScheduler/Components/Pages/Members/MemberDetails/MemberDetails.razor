@@ -40,10 +40,53 @@ else
                     }
                     else
                     {
-                        <EditForm Model="_createTraining" id="asd">
-                            <Training Fullname="_member.Member.Fullname" Start="_createTraining.Start" Trainings="_createTraining.Trainings" />
+                        <EditForm Model="_createTraining">
+                            <div class="container-fluid border" style="width: 20cm; height: 21cm">
+                                <div class="row" style="height: 1cm">
+                                    <div class="col border">
+                                        <div class="row align-items-center h-100">
+                                            <div class="col-auto fw-bold">Atleta:</div>
+                                            <div class="col">@_member.Member.Fullname</div>
+                                        </div>
+                                    </div>
+                                    <div class="col border">
+                                        <div class="row align-items-center h-100">
+                                            <div class="col-auto">
+                                                <div class="fw-bold">Data inizio:</div>
+                                            </div>
+                                            <div class="col-7">
+                                                <InputDate @bind-Value="_createTraining.Start" class="form-control form-control-sm" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @foreach (var training in _createTraining.Trainings)
+                                {
+                                    <InteractableRow Id="@training.Id.ToString()" Edges="_mainRowEdges" Height="4cm">
+                                        <LeftCell>
+                                            <InteractableRow Id="@($"{training.Id}-LeftRow")" Edges="null" LeftCellEdges="_leftCellEdges" Height="100%">
+                                                <LeftCell>
+                                                    asd
+                                                </LeftCell>
+                                                <RightCell>
+                                                    asdd
+                                                </RightCell>
+                                            </InteractableRow>
+                                        </LeftCell>
+                                        <RightCell>
+                                            <InteractableRow Id="@($"{training.Id}-RightRow")" Edges="null" LeftCellEdges="_leftCellEdges" Height="100%">
+                                                <LeftCell>
+                                                    asd
+                                                </LeftCell>
+                                                <RightCell>
+                                                    asdd
+                                                </RightCell>
+                                            </InteractableRow>
+                                        </RightCell>
+                                    </InteractableRow>
+                                }
+                            </div>
                         </EditForm>
-                        <button @onclick="Print">print</button>
                     }
                 </div>
                 <div class="modal-footer">

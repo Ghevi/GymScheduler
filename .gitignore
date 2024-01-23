@@ -66,6 +66,9 @@ appsettings.json
 appsettings.*.json
 /GymScheduler/wwwroot/lib
 /GymScheduler/.local-chromium
+package-lock.json
+bundle.js
+*.js.map
 
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt

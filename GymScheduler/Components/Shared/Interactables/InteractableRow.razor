@@ -1,0 +1,14 @@
+﻿<div id="@Id" class="row border resizable" style="height: @(Height)">
+    <div id="@LeftCellId" class="col h-100 border-end resizable">
+        @if(LeftCell is not null)
+        {
+            @LeftCell
+        }
+    </div>
+    <div id="@RightCellId" class="col h-100 border-start resizable">
+        @if (RightCell is not null)
+        {
+            @RightCell
+        }
+    </div>
+</div>
